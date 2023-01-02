@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*void aloca(int N){
+int *aloca(int N){
     int *p;
-    p = (int*) malloc(sizeof(N));
-}*/
+    p = (int*) malloc(N*sizeof(char));
+}
 
 struct Cadastro{
     char nome[20];
@@ -14,7 +14,6 @@ struct Cadastro{
 
 int main() {
     int N, i;
-    void *p;
     printf("Digite um valor positivo N: ");
     scanf("%d", &N);
     if(N <= 0){
@@ -22,18 +21,19 @@ int main() {
         exit(1);
     }
 
+    
+
     struct Cadastro pessoa[N];
     for(i=0; i<N; i++){
         printf("Digite o nome: ");
-        scanf("%s", &pessoa[i].nome);
-        setbuff(stdin, NULL);
+        getw(pessoa[i].nome);
         printf("Digite a idade: ");
-        scanf("%d", &pessoa[i].idade);
+        getw(pessoa[i].idade);
         printf("Digite o endereço: ");
         scanf("%d", &pessoa[i].endereco);
     }
 
     for(i=0; i<N; i++){
-        printf("%d tem a idade %d e o seu endereco eh ", pessoa[i].nome, pessoa[i].idade, pessoa[i].endereco);
+        printf("%s tem a idade %d e o seu endereco eh ", pessoa[i].nome, pessoa[i].idade, pessoa[i].endereco);
     }
 }
