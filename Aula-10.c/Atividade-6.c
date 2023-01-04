@@ -15,9 +15,8 @@ int main()
         }
     }
     
-    int **v, i, j;
-
-    v = (int**) malloc(N*sizeof(int*)); // Perguntar sobre se ponteiro "(int*)" seria a mesma coisa que "N*N*sizeof(int)", ou ocuparia mais espaço
+    int **v = (int**) malloc(N*sizeof(int*)), i, j; // Perguntar sobre se ponteiro "(int*)" seria a mesma coisa que "N*N*sizeof(int)", ou ocuparia mais espaço
+    
     for (i = 0; i < N; i++ ) {
         v[i] = (int*) malloc (N * sizeof(int));
     }
@@ -39,5 +38,10 @@ int main()
         }
         printf("\n");
     }
+
+     for (int i = 0; i < N; i++)
+        free(v[i]);
+    free(v);
+
     return 0;
 }
