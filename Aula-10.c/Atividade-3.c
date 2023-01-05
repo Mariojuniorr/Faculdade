@@ -17,10 +17,10 @@ int main()
     b = &a;
     *b += a;
     printf("O dobro de %f eh %f \n", a, *b);
-    c = (float*) malloc(sizeof(float**));
+    c = (float*) malloc(sizeof(float*));
     **c = b + a;
     printf("O triplo de %f eh %f \n", a, **c);
-    d = (float***) malloc(sizeof(float**));
+    d = (float*) malloc(sizeof(float**));
     ***d = **c + a;
     printf("O quádruplo de %f eh %f \n", a, ***d);
     

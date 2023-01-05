@@ -1,10 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-int *aloca(int N){
-    int *p;
-    p = (int*) malloc(N*sizeof(char));
-}
+#include <string.h>
 
 struct Cadastro{
     char nome[20];
@@ -25,10 +21,8 @@ int main() {
 
     struct Cadastro pessoa[N];
     for(i=0; i<N; i++){
-        printf("Digite o nome: ");
-        getw(pessoa[i].nome);
-        printf("Digite a idade: ");
-        getw(pessoa[i].idade);
+        printf("Digite o nome: "); gets(pessoa[i].nome);
+        printf("Digite a idade: "); gets(pessoa[i].idade);
         printf("Digite o endereço: ");
         scanf("%d", &pessoa[i].endereco);
     }
