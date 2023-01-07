@@ -14,7 +14,5 @@ int main (){
     strcpy(str2, str1);
     printf("%s", str2);
 
-    printf("%d", strlen(str2));
-
-    
+    printf("%d", strlen(str2));    
 }
