@@ -17,11 +17,18 @@ typedef struct log {
 } Log;
 
 void registro(FILE *funcionarios, FILE *log) {
-    // completar
+    Funcionario Registro;
+
+    printf("\n Digite o CPF do funcionário a ser registrado: "); scanf("%d",&Registro.CPF);
+
+    printf("Digite o nome do funcionário a ser registrado: "); scanf("%s", &Registro.nome);
 }
 
 void listagem_funcionarios(FILE *funcionarios) {
-    // completar
+    Funcionario Listagem;
+    printf("\n Digite o CPF do funcionário a ser registrado: "); scanf("%d",&Listagem.CPF);
+
+    printf("Digite o nome do funcionário a ser registrado: "); scanf("%s", &Listagem.nome);
 }
 
 void listagem_log(FILE *log) {
