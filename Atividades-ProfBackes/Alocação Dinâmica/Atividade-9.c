@@ -12,7 +12,7 @@ int retorna(int **matriz, int N){
 
     for(int i=0; i<N; i++){
         for(int j=0; j<N; j++){
-            if(matriz[i][j]==x){
+            if(x==matriz[i][j]){
                 return 1;
             }
             else{
@@ -39,5 +39,5 @@ int main(){
         }
     }
 
-    retorna(matriz, N);
+    printf("%d",retorna(matriz, N));
 }

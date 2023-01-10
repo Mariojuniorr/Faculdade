@@ -21,6 +21,7 @@ void registro(FILE *funcionarios, FILE *log) {
 
     printf("\n Digite o CPF do funcionário a ser registrado: "); scanf("%d",&Registro.CPF);
 
+
     printf("Digite o nome do funcionário a ser registrado: "); scanf("%s", &Registro.nome);
 }
 

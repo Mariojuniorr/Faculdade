@@ -7,12 +7,18 @@ zerados.*/
 #include <stdio.h>
 #include <stdlib.h>
 
-void inserir(int x){
-    
+void inserir(int x, int *p){
+    for(int i=1; i<=(x/sizeof(int)); i++){
+        printf("Digite o valor %d: ", i);
+        scanf("%d", &p[i]);
+    }
 }
 
-void consultar(int x){
-
+void consultar(int x, int *p){
+    printf("Os números digitados foram: ");
+    for(int i=1; i<=(x/sizeof(int)); i++){
+        printf("%d   ", p[i]);
+    }
 }
 
 
@@ -20,13 +26,22 @@ int main(){
     int tam;
     printf("Digite o tamanho da mémoria: "); scanf("%d", &tam);
 
+    if(tam%sizeof(int)!=0){
+        printf("Tamanho inválido");
+        exit(1);
+    }
+    
+    int *p=(int*) malloc(sizeof(tam));
 
     int opcao;
-    switch(opcao)
-    {
-        case 1: inserir(tam); break;
-        case 2: consultar(tam); break;
+    do{
+            printf("\n\n 0-sair\n 1-inserir\n 2-consultar\n");
+            printf("\n Opcao: "); scanf(" %d",&opcao);
+        switch(opcao) {
+            case 1: inserir(tam, p); break;
+            case 2: consultar(tam, p); break;
+            default: break;
+        }
+    }while(opcao != 0);
 
-        default: break;
-    }
 }

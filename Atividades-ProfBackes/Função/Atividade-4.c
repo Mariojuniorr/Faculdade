@@ -6,17 +6,20 @@ outro numero inteiro. Ex: 1, 4, 9... */
 #include <stdlib.h>
 #include <math.h>
 
-void quadrado(float x){
+void quadrado(int x){
     int i;
     for(i=0; i<=x; i++){
         if(pow(i,2)==x){
-            printf("O número é um quadrado perfeito");
+            printf("O número é um quadrado perfeito \n");
         }
     }
 }
 
 int main(){
-    float num;
+    int num;
     printf("Digite um quadrado perfeito: ");
-    scanf("%f", &num);
+    scanf("%d", &num);
+    quadrado(num);
+
+    return 0;
 }

@@ -13,5 +13,35 @@ iguais.
 #include <stdio.h>
 #include <stdlib.h>
 
+void ehTriangulo(int x, int y, int z){
+    if(x<=0 || y<=0 || z<=0){
+        printf("Uma das medidas digitadas é inválida!");
+        exit(0);
+    }
+    else{
+        printf("Eh um triangulo! \n");
+    }
+}
 
+void tipoTriangulo(int x, int y, int z){
+    if(x==y && y==z){
+        printf("Triângulo Equilátero! \n");
+    }
+    else if(x==y || y==z || x==z){
+        printf("Triângulo isósceles! \n");
+    }
+    else{
+        printf("Triângulo escaleno! \n");
+    }
+}
+
+int main(){
+    int x,y,z;
+    printf("Digite as três medidas do triângulo: ");
+    scanf("%d %d %d", &x,&y,&z);
+
+    ehTriangulo(x,y,z);
+    tipoTriangulo(x,y,z);
+    return 0;
+}
 
