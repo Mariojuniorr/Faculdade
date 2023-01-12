@@ -5,7 +5,7 @@ enderec¸o de cada posic¸ao desse array*/
 #include <stdlib.h>
 
 int main(){
-    float vetor[10];
+    float *vetor=(float*) malloc(10*sizeof(float));
     for(int i=0; i<10; i++)
         printf("%d \n", &vetor[i]);
 }

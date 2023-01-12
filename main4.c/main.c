@@ -2,58 +2,67 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef struct funcionario {
+struct funcionario {
     char CPF[11];
     char nome[30];
-    struct tm *entrada;
-    struct tm *saida;
+
     char presenca;
-} Funcionario;
+};
 
-typedef struct log {
+struct log {
     char CPF[11];
-    struct tm *data;
+    struct tm data; //Modificar para a maneira estática
     char evento;
-} Log;
-
+};
+//Aqui que eu verifico se o funcionário existe e coloco se ele entrou ou saiu?
 void registro(FILE *funcionarios, FILE *log) {
-    Funcionario Registro;
+    struct funcionario Registro;
 
-    printf("\n Digite o CPF do funcionário a ser registrado: "); scanf("%d",&Registro.CPF);
-
+    printf("\nDigite o CPF do funcionário a ser registrado: "); scanf("%s",&Registro.CPF);
+    while(1){
+        rewind(funcionarios);
+        fseek(funcionarios, 11*sizeof(Registro), SEEK_SET);
+        if(feof(funcionarios)){
+            break;
+        }
+    }
 
     printf("Digite o nome do funcionário a ser registrado: "); scanf("%s", &Registro.nome);
 }
 
 void listagem_funcionarios(FILE *funcionarios) {
-    Funcionario Listagem;
-    printf("\n Digite o CPF do funcionário a ser registrado: "); scanf("%d",&Listagem.CPF);
+    struct funcionario Listagem;
+    printf("\n Digite o CPF do funcionário a ser registrado: "); scanf("%s",&Listagem.CPF);
 
     printf("Digite o nome do funcionário a ser registrado: "); scanf("%s", &Listagem.nome);
 }
 
+//Log é o resumo de tudo, como um lugar seguro para guardar e consultar as informações do registro?
 void listagem_log(FILE *log) {
-    Log Entrasai;
+    struct log Entrasai;
 
     printf("\nDigite o CPF do funcionário: "); scanf("%s", &Entrasai.CPF);
-
-    printf("Entrada(E) / Saída(S): "); scanf(" %c", &Entrasai.evento); 
-    
-    fprintf(log, "CPF: %s   ", Entrasai.CPF); 
+    printf("Entrada(E) / Saída(S): "); scanf(" %c", &Entrasai.evento); fwrite(log, "CPF: %s ", Entrasai.CPF); 
     
     time_t segundos; //Pega a biblioteca time.h, e coloca a data no arquivo
     time(&segundos);
     Entrasai.data = localtime(&segundos);
-    fprintf(log, "                           Data: %d/%d/%d   ", Entrasai.data->tm_mday, Entrasai.data->tm_mon+1, Entrasai.data->tm_year+1900);
-    fprintf(log, "| %d hora(s) : %d minuto(s) : %d segundo(s)                        ", Entrasai.data->tm_hour, Entrasai.data->tm_min, Entrasai.data->tm_sec);
+    fwrite(log, "                           Data: %d/%d/%d   ", Entrasai.data.tm_mday, Entrasai.data.tm_mon+1, Entrasai.data.tm_year+1900);
+    fwrite(log, "| %d hora(s) : %d minuto(s) : %d segundo(s)                        ", Entrasai.data.tm_hour, Entrasai.data.tm_min, Entrasai.data.tm_sec);
 
-    fprintf(log, "Entrada(E) / Saida (S): %c  \n", Entrasai.evento);
+    freadf(log, "Entrada(E) / Saida (S): %c  \n", Entrasai.evento);
 }
 
 
 int main(void){
     FILE *funcionarios = fopen("funcionarios.bin", "wb");
     FILE *log = fopen("log.bin","wb");
+
+    if (funcionarios=NULL || log==NULL)
+        {
+        printf ("Erro na abertura do arquivo. Fim de programa.");
+        exit (1);
+        }
 
     // a partir daqui nesta função main() o código não deve ser alterado
     int opcao;
