@@ -3,17 +3,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int aloca(int **matriz){
-    int** matriz = malloc(5*sizeof(int*));
-    for(int i=0; i<5; i++)
-        matriz[i] = (int*) malloc(sizeof(int));
-
-    return matriz;
+void transpoe(int **matrizA){
+    for(int i=0; i<5; i++){
+        for(int j=0; j<5; j++)
+            printf("%d ", matrizA[j][i]);
+        printf("\n");
+    }
 }
 
 int main(){
-    int **matrizA, **matrizB, aux; 
-    aloca(&matrizA); aloca(&matrizB);
+    int **matrizA;
+    matrizA = (int**) malloc(5*sizeof(int*));
+    for(int i=0; i<5; i++){
+        matrizA[i] = (int*) malloc(sizeof(int));
+    }
+
     for(int i=0; i<5; i++){
         for(int j=0; j<5; j++){
             scanf("%d", &matrizA[i][j]);
@@ -22,19 +26,10 @@ int main(){
 
     for(int i=0; i<5; i++){
         for(int j=0; j<5; j++)
-            printf("%d", matrizA[i][j]);
+            printf("%d ", matrizA[i][j]);
+        printf("\n");
     }
 
-    for(int i=0; i<5; i++){
-        for(int j=0; j<5; j++){
-            aux = matrizB[j][i];
-            matrizB[j][i] = matrizA[i][j];
-            matrizB[i][j] = aux;
-        }
-    }
-
-    for(int i=0; i<5; i++){
-        for(int j=0; j<5; j++)
-            printf("%d", matrizA[i][j]);
-    }
+    printf("\n");
+    transpoe(matrizA);
 }

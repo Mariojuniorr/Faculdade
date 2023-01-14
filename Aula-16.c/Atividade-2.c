@@ -21,6 +21,6 @@ float calcula_e(int N){
 }
 
 int main(){
-    float e = calcula_e(6);
+    float e = calcula_e(61);
     printf(" e = %f", e);
 }
