@@ -4,61 +4,35 @@
 #include <string.h>
 
 struct listagem_funcionario{
-    char CPF[11],nome[30];
+    char CPF[11];
+    char nome[20];
     time_t entrada;
     time_t saida;
     char status;
 };
 struct log{
-    char CPF[11];
+    long unsigned int CPF[11];
     time_t horario;
     char evento;
 };
  
 void registro(FILE *funcionarios, FILE *log) {
-    struct listagem_funcionario Funcionario;
+    struct listagem_funcionario registro;
     printf("CPF: ");
-    scanf("%s",Funcionario.CPF);
+    scanf("%s", registro.CPF);
+    
     rewind(funcionarios);
-    struct log login;
-    struct listagem_funcionario x;
-    while(1) {
-    fread(&x,sizeof(struct listagem_funcionario),1,funcionarios);
-    if(feof(funcionarios)){
-        break;
-    }
-    if(strcmp(Funcionario.CPF,x.CPF)==0){
-        printf("Entrada(E) / Saída(S): ");
-        scanf(" %c",&login.evento);
-        if(login.evento=='E'){
-            x.entrada = time(NULL);
-            x.status = 'P';
-        }
-        else{
-            x.saida = time(NULL);
-            x.status = 'A';
-        }
-        strcpy(login.CPF,x.CPF);
-        login.horario = time(NULL);
-        fseek(funcionarios, -1 * (int)sizeof(struct listagem_funcionario),SEEK_CUR);
-        fwrite(&x,sizeof(struct listagem_funcionario),1,funcionarios);
-        fwrite(&login,sizeof(struct log),1,log);
-        return;
-    }
-}
-    login.evento = 'E';
-    login.horario = time(NULL);
-    fwrite(&login,sizeof(struct log),1,log);
-    Funcionario.entrada= time(NULL);
-    Funcionario.status = 'P';
-    printf("Nome: ");
-    scanf("%s",Funcionario.nome); 
-    fwrite(&Funcionario,sizeof(struct listagem_funcionario),1,funcionarios);
+    fseek(funcionarios, sizeof(registro), SEEK_SET);
+    fwrite("%d", registro.CPF, sizeof(long int), funcionarios);
+    fwrite("%s", )
+    printf("Entrada(E) / Saída(S): ");
+    scanf("%s", &registro.status);
+    fwrite("      Entrada(E) / Saída(S): %c   ", registro.status, sizeof(char), funcionarios);
     return;
 }
  
 void listagem_funcionarios(FILE *funcionarios) {
-    rewind(funcionarios);
+/*  rewind(funcionarios);
     struct listagem_funcionario x;
     while(1){
     fread(&x,sizeof(struct listagem_funcionario),1,funcionarios);
@@ -75,32 +49,33 @@ void listagem_funcionarios(FILE *funcionarios) {
         printf("%s\n", ctime(&x.saida));
     }
     }
+*/
 }
  
 void listagem_log(FILE *log) {
-    rewind(log);
-    struct log x;
+    struct log login;
     while(1){
-    fread(&x,sizeof(struct log),1,log);
-    if(feof(log)){
-        break;
-    }
-    printf("CPF:%s\n", x.CPF);
-    printf("Horario:%s\n", ctime(&x.horario));
-    printf("Evento:%c\n", x.evento);
+        fread(&login,sizeof(struct log),1,log);
+        if(feof(log)){
+            break;
+        }
+        printf("CPF: %s", login.CPF);
+        printf("Horario: %s", ctime(&login.horario));
+        printf("Evento: %c", login.CPF);
     }
 }
  
 int main() {
     // abrir arquivos (completar). Sugestão: tentar abrir com "rb+", e se não abrir, tentar abrir com "wb+", 
     // e se não abrir, informar o usuário que não foi possível
-    FILE *funcionarios;
-    FILE *log;
- 
-    funcionarios = fopen("funcionarios.bin","rb+");
-    log = fopen("log.bin","rb+");
-    funcionarios = fopen("funcionarios.bin","wb+");
-    log = fopen("log.bin","wb+");
+    FILE *funcionarios = fopen("funcionarios.bin","rb+");
+    FILE *log = log = fopen("log.bin","rb+");
+
+    if(!log || !funcionarios){
+        funcionarios = fopen("funcionarios.bin","wb+");
+        log = fopen("log.bin","wb+");
+    }
+    
     if(!funcionarios || !log){
         printf("Erro na abertura do arquivo\n");
         return 1;
